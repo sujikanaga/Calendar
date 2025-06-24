@@ -20,6 +20,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showFormModal, setShowFormModal] = useState(false);
   const [editingEvent, setEditingEvent] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "light";
@@ -69,34 +70,98 @@ function App() {
   const years = Array.from({ length: 11 }, (_, i) => currentYear - 5 + i);
 
   return (
-    <div className="min-h-screen flex">
-      <aside className="w-72 bg-white dark:bg-gray-800 p-4 border-r dark:border-gray-700 space-y-4">
-        <MiniCalendar currentDate={currentDate} setCurrentDate={setCurrentDate} />
-        <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-xl space-y-4">
-          <SearchBar query={searchQuery} onChange={setSearchQuery} />
-          <EventTypeFilter selectedType={filterType} onSelectType={setFilterType} />
+    <div className="min-h-screen flex flex-col lg:flex-row bg-gray-50 dark:bg-gray-900">
+      {/* Mobile Header */}
+      <div className="lg:hidden bg-white dark:bg-gray-800 border-b dark:border-gray-700 p-4">
+        <div className="flex justify-between items-center">
           <button
-            onClick={() => {
-              setShowFormModal(true);
-              setEditingEvent(null);
-            }}
-            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded w-full"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="p-2 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
           >
-            ➕ Add Event
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
           </button>
+          <h1 className="text-lg font-semibold text-gray-900 dark:text-white">Calendar</h1>
           <button
-            className="w-full text-sm text-gray-700 dark:text-white"
             onClick={toggleTheme}
+            className="p-2 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
           >
-            Toggle {theme === "light" ? "Dark" : "Light"} Theme
+            {theme === "light" ? "🌙" : "☀️"}
           </button>
+        </div>
+      </div>
+
+      {/* Sidebar */}
+      <aside className={`
+        fixed lg:relative inset-y-0 left-0 z-50 lg:z-auto
+        w-full xs:w-80 sm:w-72 lg:w-80 xl:w-96
+        bg-white dark:bg-gray-800 
+        border-r dark:border-gray-700 
+        transform transition-transform duration-300 ease-in-out
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+        lg:block
+      `}>
+        <div className="h-full overflow-y-auto p-3 sm:p-4 lg:p-6">
+          {/* Mobile close button */}
+          <div className="lg:hidden flex justify-between items-center mb-4">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Menu</h2>
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="p-2 rounded-md text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <div className="space-y-4 sm:space-y-6">
+            <MiniCalendar currentDate={currentDate} setCurrentDate={setCurrentDate} />
+            
+            <div className="bg-gray-50 dark:bg-gray-700 p-3 sm:p-4 rounded-xl space-y-3 sm:space-y-4">
+              <SearchBar query={searchQuery} onChange={setSearchQuery} />
+              <EventTypeFilter selectedType={filterType} onSelectType={setFilterType} />
+              
+              <button
+                onClick={() => {
+                  setShowFormModal(true);
+                  setEditingEvent(null);
+                  setSidebarOpen(false);
+                }}
+                className="bg-green-600 hover:bg-green-700 text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg w-full text-sm sm:text-base font-medium transition-colors duration-200"
+              >
+                <span className="inline-flex items-center">
+                  <span className="mr-2">➕</span>
+                  Add Event
+                </span>
+              </button>
+              
+              <button
+                className="w-full text-xs sm:text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white py-2 transition-colors duration-200 hidden lg:block"
+                onClick={toggleTheme}
+              >
+                Toggle {theme === "light" ? "Dark" : "Light"} Theme
+              </button>
+            </div>
+          </div>
         </div>
       </aside>
 
-      <main className="flex-1 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white transition duration-300 p-4">
-        <div className="max-w-6xl mx-auto">
+      {/* Overlay for mobile sidebar */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Main Content */}
+      <main className="flex-1 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300 p-2 sm:p-4 lg:p-6 overflow-hidden">
+        <div className="max-w-full mx-auto h-full">
           <CalendarHeader
             currentDate={currentDate}
+            setCurrentDate={setCurrentDate}
             onPrev={() => setCurrentDate(currentDate.subtract(1, "month"))}
             onNext={() => setCurrentDate(currentDate.add(1, "month"))}
             onYearChange={(e) =>
@@ -107,15 +172,17 @@ function App() {
             onToggleTheme={toggleTheme}
           />
 
-          <CalendarGrid
-            calendarDays={calendarDays}
-            currentDate={currentDate}
-            eventsData={filteredEvents}
-            filterType={filterType}
-            onEventClick={(event) => {
-              setSelectedEvent(event);
-            }}
-          />
+          <div className="overflow-auto">
+            <CalendarGrid
+              calendarDays={calendarDays}
+              currentDate={currentDate}
+              eventsData={filteredEvents}
+              filterType={filterType}
+              onEventClick={(event) => {
+                setSelectedEvent(event);
+              }}
+            />
+          </div>
 
           <EventModal
             event={selectedEvent}

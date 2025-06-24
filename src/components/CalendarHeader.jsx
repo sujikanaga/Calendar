@@ -1,33 +1,34 @@
 import React from "react";
 
-const CalendarHeader = ({ currentDate, onPrev, onNext, onYearChange, years, onToggleTheme, theme }) => {
+function CalendarHeader({ currentDate, setCurrentDate }) {
   return (
-    <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-      <button onClick={onPrev} className="px-4 py-2 bg-blue-600 text-white rounded">Prev</button>
-
-      <div className="text-center">
-        <h1 className="text-3xl font-bold">{currentDate.format("MMMM YYYY")}</h1>
-        <select
-          value={currentDate.year()}
-          onChange={onYearChange}
-          className="mt-2 border rounded px-3 py-1 bg-white dark:bg-gray-800 dark:text-white"
+    <div className="w-full mb-4 sm:mb-6 px-2 sm:px-4">
+      <div className="flex items-center justify-between bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl shadow-lg py-3 px-4 sm:px-6">
+        
+        {/* Left: Prev Button */}
+        <button
+          className="bg-white text-blue-600 font-semibold px-3 py-1 sm:px-4 sm:py-2 rounded text-xs sm:text-sm shadow hover:bg-blue-100 transition-all duration-200 hover:scale-105"
+          onClick={() => setCurrentDate(currentDate.subtract(1, "month"))}
         >
-          {years.map((y) => (
-            <option key={y} value={y}>{y}</option>
-          ))}
-        </select>
+          ◀ Prev
+        </button>
+
+        {/* Center: Month Title */}
+        <h2 className="text-lg sm:text-2xl font-bold text-center">
+          <span className="hidden sm:inline">{currentDate.format("MMMM YYYY")}</span>
+          <span className="sm:hidden">{currentDate.format("MMM YYYY")}</span>
+        </h2>
+
+        {/* Right: Next Button */}
+        <button
+          className="bg-white text-blue-600 font-semibold px-3 py-1 sm:px-4 sm:py-2 rounded text-xs sm:text-sm shadow hover:bg-blue-100 transition-all duration-200 hover:scale-105"
+          onClick={() => setCurrentDate(currentDate.add(1, "month"))}
+        >
+          Next ▶
+        </button>
       </div>
-
-      <button onClick={onNext} className="px-4 py-2 bg-blue-600 text-white rounded">Next</button>
-
-      <button
-        onClick={onToggleTheme}
-        className="px-4 py-1 rounded border border-gray-400 dark:border-gray-300"
-      >
-        {theme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode"}
-      </button>
     </div>
   );
-};
+}
 
 export default CalendarHeader;
