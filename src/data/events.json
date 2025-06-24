@@ -1,0 +1,130 @@
+[
+  {
+    "date": "2025-01-10",
+    "startTime": "09:00",
+    "endTime": "10:00",
+    "color": "#3498db",
+    "title": "Team Kickoff",
+    "type": "meeting"
+  },
+  {
+    "date": "2025-02-14",
+    "startTime": "12:00",
+    "endTime": "13:00",
+    "color": "#2ecc71",
+    "title": "Valentine's Task",
+    "type": "personal"
+  },
+  {
+    "date": "2025-03-21",
+    "startTime": "14:00",
+    "endTime": "15:30",
+    "color": "#e74c3c",
+    "title": "Project Review",
+    "type": "task"
+  },
+  {
+    "date": "2025-04-05",
+    "startTime": "11:00",
+    "endTime": "12:30",
+    "color": "#9b59b6",
+    "title": "Monthly Sync",
+    "type": "meeting"
+  },
+  {
+    "date": "2025-05-18",
+    "startTime": "10:00",
+    "endTime": "11:00",
+    "color": "#f1c40f",
+    "title": "Grocery Shopping",
+    "type": "personal"
+  },
+  {
+    "date": "2025-06-23",
+    "startTime": "00:00",
+    "endTime": "01:30",
+    "color": "#f6be23",
+    "title": "Daily Standup",
+    "type": "task"
+  },
+  {
+    "date": "2025-06-23",
+    "startTime": "04:30",
+    "endTime": "07:30",
+    "color": "#f6501e",
+    "title": "Weekly Catchup",
+    "type": "meeting"
+  },
+  {
+    "date": "2025-06-28",
+    "startTime": "08:00",
+    "endTime": "09:30",
+    "color": "#00BFFF",
+    "title": "Client Meeting",
+    "type": "meeting"
+  },
+  {
+    "date": "2025-06-30",
+    "startTime": "14:00",
+    "endTime": "15:00",
+    "color": "#8e44ad",
+    "title": "Sprint Planning",
+    "type": "task"
+  },
+  {
+    "date": "2025-06-30",
+    "startTime": "15:30",
+    "endTime": "16:30",
+    "color": "#2ecc71",
+    "title": "Code Review",
+    "type": "task"
+  },
+  {
+    "date": "2025-07-04",
+    "startTime": "16:00",
+    "endTime": "17:00",
+    "color": "#e67e22",
+    "title": "Independence Prep",
+    "type": "task"
+  },
+  {
+    "date": "2025-08-15",
+    "startTime": "09:00",
+    "endTime": "10:00",
+    "color": "#1abc9c",
+    "title": "Independence Day",
+    "type": "personal"
+  },
+  {
+    "date": "2025-09-10",
+    "startTime": "11:00",
+    "endTime": "12:00",
+    "color": "#34495e",
+    "title": "Quarterly Review",
+    "type": "meeting"
+  },
+  {
+    "date": "2025-10-31",
+    "startTime": "18:00",
+    "endTime": "20:00",
+    "color": "#ff5733",
+    "title": "Halloween Party",
+    "type": "personal"
+  },
+  {
+    "date": "2025-11-05",
+    "startTime": "10:00",
+    "endTime": "11:30",
+    "color": "#c0392b",
+    "title": "Bug Fix Sprint",
+    "type": "task"
+  },
+  {
+    "date": "2025-12-25",
+    "startTime": "09:00",
+    "endTime": "11:00",
+    "color": "#27ae60",
+    "title": "Christmas Celebration",
+    "type": "personal"
+  }
+]
